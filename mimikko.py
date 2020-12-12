@@ -52,7 +52,7 @@ def GetUserSignedInformation(url, app_id):
 
     try:
         with requests.get(url, headers=headers_get, verify=False,timeout=300) as resp:
-            res = resp.json()
+            res = resp.text
             return res
 
     except Exception as ex:
