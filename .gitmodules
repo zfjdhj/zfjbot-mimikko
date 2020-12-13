@@ -1,0 +1,3 @@
+[submodule "mimikkoAutoSignIn"]
+	path = mimikkoAutoSignIn
+	url = https://github.com/zfjdhj/mimikkoAutoSignIn
