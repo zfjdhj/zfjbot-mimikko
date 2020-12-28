@@ -12,11 +12,13 @@ import requests
 import json
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+from .PilCalendar import drawMonth
+import datetime
 
 sv = Service('zfjbot-mimikko',enable_on_default=False)
 group_id="426770092"
 bot=get_bot()
-
+plugin_path='C:/tmp/xcwbot/xcwbot/HoshinoBot_go/hoshino/modules/zfjbot-mimikko/'
 
 
 @sv.on_fullmatch('mimikko check')
@@ -42,8 +44,14 @@ async def mimikko_check(bot, ev):
     res +=f"startTime: {timeStamp2time(sign_history['body']['startTime'])}\n"
     res +=f"endTime: {timeStamp2time(sign_history['body']['endTime'])}\n"
     res +='signLogs:'
+    day_list=[]
     for item in sign_history['body']['signLogs']:
-        res +=f"\n{timeStamp2time(item['signDate'])}"
+        rex_data=re.search('(?P<月>.*)月(?P<日>.*)日',timeStamp2time(item['signDate']))
+        if rex_data.group('月') == re.search('(?P<月>.*)月(?P<日>.*)日',
+        timeStamp2time(sign_history['body']['endTime']).group('月')):
+            day_list.append(rex_data.group('日'))
+    img_path= drawMonth(datetime.datetime.now().month,day_list)
+    res +=f'[CQ:image,file=file:///{plugin_path}/{img_path}]'
     await bot.send(ev,res)
 
 @sv.on_fullmatch('mimikko sign')
