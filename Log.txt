@@ -1,0 +1,1 @@
+download 20201217195607_ozof.jpg with requests.get(https://mimikko.oss-cn-shanghai.aliyuncs.com/file/20201217/20201217195607_ozof.jpg)
