@@ -76,6 +76,7 @@ def drawSigncard(sign_data):
                     index += 1
 
                 # 绘制pictureName
+                font_width, font_height = draw.textsize(ImPictureName, font)
                 draw.text(
                     (bg.size[0]-font_width-80, bg.size[1]-font_height-60),
                     ImPictureName, 
