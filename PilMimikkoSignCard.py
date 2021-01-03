@@ -8,6 +8,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 plugin_path='C:/tmp/xcwbot/xcwbot/HoshinoBot_go/hoshino/modules/zfjbot-mimikko/'
+# plugin_path='./'
 
 description_font = os.path.join(plugin_path,'fonts/思源黑体SourceHanSansCN-Medium.otf')
 description_font_size = 32
@@ -76,7 +77,7 @@ def drawSigncard(sign_data):
 
                 # 绘制pictureName
                 draw.text(
-                    (964-len(ImPictureName)*description_font_size, 600+int((index)*1.8*description_font_size)),
+                    (bg.size[0]-font_width-80, bg.size[1]-font_height-60),
                     ImPictureName, 
                     fill=(168,168,168,), 
                     font=font)   
