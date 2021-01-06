@@ -77,8 +77,13 @@ def drawSigncard(sign_data):
 
                 # 绘制pictureName
                 font_width, font_height = draw.textsize(ImPictureName, font)
+                x=bg.size[0]-font_width-80
+                if bg.size[1]-font_height-60<Im.size[1]+60+int((index+1)*description_font_size):
+                    y=bg.size[1]-font_height-60 
+                else:
+                    y=Im.size[1]+60+int((index+1)*description_font_size)
                 draw.text(
-                    (bg.size[0]-font_width-80, bg.size[1]-font_height-60),
+                    (x,y),
                     ImPictureName, 
                     fill=(168,168,168,), 
                     font=font)   
@@ -87,7 +92,7 @@ def drawSigncard(sign_data):
                 text='MimikkoAutoSign'
                 font_width, font_height = draw.textsize(text, font)
                 draw.text(
-                    ((bg.size[0]-font_width)/2, bg.size[1]-font_height-16),
+                    ((bg.size[0]-font_width)/2, bg.size[1]-font_height-12),
                     text=text, 
                     fill=(135,135,135,), 
                     font=font

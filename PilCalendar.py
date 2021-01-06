@@ -14,9 +14,12 @@ def drawMonth(month,day_list,plugin_path):
     width, height = bg.size
     img = Image.new('RGBA',bg.size, color=(255,255,255,40))
     img.paste(bg,mask=bg)
-    # rows = 2 titles + 5 rows of days + 2(head + footer)blank
+    # rows = 2 titles + 5or6 rows of days + 2(head + footer)blank
     # cols = 7 cols of week + 1 blank for left + 1 col for right
-    rows, cols = 9, len(WEEK) + 2
+    if len([day for day in calendar.Calendar(firstweekday=0).itermonthdays(datetime.datetime.now().year, month)])+1>35:
+        rows, cols = 10, len(WEEK) + 2
+    else:
+        rows, cols = 9, len(WEEK) + 2
     colSpace, rowSpace = width // cols, height // rows
     
     white_block=Image.new('RGBA',size=(width-200, height-200), color=(255,255,255,90))
