@@ -69,7 +69,7 @@ def drawSigncard(sign_data):
                 index=0
                 for item in strList:
                     draw.text(
-                        (80, 600+int(index*1.2*description_font_size)),
+                        (80, Im.size[1]+60+int(index*1.2*description_font_size)),
                         item, 
                         fill=(129,129,129,), 
                         font=font)
