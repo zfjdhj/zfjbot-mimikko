@@ -3,7 +3,7 @@ import requests
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 import urllib3
-
+import time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
@@ -52,7 +52,7 @@ def drawSigncard(sign_data):
                 bg=Image.new(mode='RGB',size=(964,833),color="white")
                 bg.paste(Im,(32,32))
                 
-                # 绘制文字
+                # 绘制Description文字
                 draw = ImageDraw.Draw(bg)
                 font=ImageFont.truetype(description_font, size=description_font_size)
 
@@ -92,11 +92,11 @@ def drawSigncard(sign_data):
                     fill=(135,135,135,), 
                     font=font
                     )        
-
-                bg.save(os.path.join(ImSetDir, 'SignCard.jpg'))
+                date=time.strftime("%Y%m%d", time.localtime())
+                bg.save(os.path.join(ImSetDir, f'SignCard{date}.jpg'))
                 MsgTxt='download {} with requests.get({})\n'.format(ImName,ImUrl)
                 FId2.writelines(MsgTxt)
-                return os.path.join(ImSetDir, 'SignCard.jpg')
+                return os.path.join(ImSetDir, f'SignCard{date}.jpg')
             except Exception as error:
                 FId.writelines(ImUrl)
                 MsgTxt ='not download {} with ERROR: {}\n'.format(ImName,error)

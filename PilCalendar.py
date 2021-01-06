@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import calendar
+import datetime
 
 
 def drawMonth(month,day_list,plugin_path):
@@ -43,7 +44,7 @@ def drawMonth(month,day_list,plugin_path):
     cal = calendar.Calendar(firstweekday=0)
     row, col = 3, 2
     mark=Image.open(f'{plugin_path}/200x200.png').convert('RGBA').resize((100, 100), Image.ANTIALIAS)
-    for day in cal.itermonthdays(2020, month):
+    for day in cal.itermonthdays(datetime.datetime.now().year, month):
         if day > 0:
             # if weekday, draw with red color
             if col == 1 or col == 7:
