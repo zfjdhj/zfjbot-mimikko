@@ -7,7 +7,7 @@ import time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-plugin_path='C:/tmp/xcwbot/xcwbot/HoshinoBot_go/hoshino/modules/zfjbot-mimikko/'
+plugin_path=os.path.dirname(__file__)
 # plugin_path='./'
 
 description_font = os.path.join(plugin_path,'fonts/思源黑体SourceHanSansCN-Medium.otf')

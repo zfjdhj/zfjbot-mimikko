@@ -9,6 +9,7 @@ from nonebot import *
 from hoshino import Service
 from .mimikkoAutoSignIn.mimikko import mimikko,timeStamp2time
 from .config import *
+
 import requests
 import json
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -64,7 +65,7 @@ async def mimikko_check(bot, ev):
 
 @sv.on_fullmatch('mimikko sign')
 async def mimikko_sign_in(bot, ev):
-    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko()
+    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,authorization)
     res="Sign Data:\n"
     res +=f"code:, {sign_data['code']}\n"
     res +=f"获得成长值Reward：{sign_data['body']['Reward']}\n"
@@ -79,7 +80,7 @@ async def mimikko_sign_in(bot, ev):
    
 @sv.on_fullmatch('mimikko energy')
 async def mimikko_sign_in(bot, ev):
-    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko()
+    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,authorization)
     res =f'Energy Info:\n'
     res +=f"code: {energy_info_data['code']}\n"
     res +=f"msg: {energy_info_data['msg']}\n"
@@ -90,7 +91,7 @@ async def mimikko_sign_in(bot, ev):
     await bot.send(ev, res)
 
 async def mimikko_sign_in_auto():
-    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko()
+    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,authorization)
     res="Sign Data:\n"
     res +=f"获得成长值Reward：{sign_data['body']['Reward']}\n"
     res +=f"获得硬币GetCoin：{sign_data['body']['GetCoin']}\n"
