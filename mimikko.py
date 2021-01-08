@@ -8,6 +8,8 @@ from hoshino import *
 from nonebot import *
 from hoshino import Service
 from .mimikkoAutoSignIn.mimikko import mimikko,timeStamp2time
+from .config import *
+
 import requests
 import json
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -16,15 +18,20 @@ from .PilCalendar import drawMonth
 from .PilMimikkoSignCard import drawSigncard
 import datetime
 import re
-sv = Service('zfjbot-mimikko',enable_on_default=False)
-group_id="426770092"
-bot=get_bot()
-plugin_path='C:/tmp/xcwbot/xcwbot/HoshinoBot_go/hoshino/modules/zfjbot-mimikko/'
+import os
 
+sv = Service('zfjbot-mimikko',enable_on_default=False)
+
+group_id=GROUP_ID
+app_id=APP_ID
+authorization=AUTHORIZATION
+
+bot=get_bot()
+plugin_path=os.path.dirname(__file__)
 
 @sv.on_fullmatch('mimikko check')
 async def mimikko_check(bot, ev):
-    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko()
+    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,authorization)
     res="Sign Data:\n"
     res +=f"获得成长值Reward：{sign_data['body']['Reward']}\n"
     res +=f"获得硬币GetCoin：{sign_data['body']['GetCoin']}\n"
@@ -58,7 +65,7 @@ async def mimikko_check(bot, ev):
 
 @sv.on_fullmatch('mimikko sign')
 async def mimikko_sign_in(bot, ev):
-    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko()
+    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,authorization)
     res="Sign Data:\n"
     res +=f"code:, {sign_data['code']}\n"
     res +=f"获得成长值Reward：{sign_data['body']['Reward']}\n"
@@ -73,7 +80,7 @@ async def mimikko_sign_in(bot, ev):
    
 @sv.on_fullmatch('mimikko energy')
 async def mimikko_sign_in(bot, ev):
-    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko()
+    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,authorization)
     res =f'Energy Info:\n'
     res +=f"code: {energy_info_data['code']}\n"
     res +=f"msg: {energy_info_data['msg']}\n"
@@ -84,7 +91,7 @@ async def mimikko_sign_in(bot, ev):
     await bot.send(ev, res)
 
 async def mimikko_sign_in_auto():
-    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko()
+    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,authorization)
     res="Sign Data:\n"
     res +=f"获得成长值Reward：{sign_data['body']['Reward']}\n"
     res +=f"获得硬币GetCoin：{sign_data['body']['GetCoin']}\n"
