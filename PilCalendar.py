@@ -66,5 +66,5 @@ def drawMonth(month,day_list,plugin_path):
         if col == 8:
             col = 1
             row += 1
-    img.save(f"{plugin_path}{MONTH[month-1]}.png")
+    img.save(f"{plugin_path}/{MONTH[month-1]}.png")
     return MONTH[month-1] + '.png'
