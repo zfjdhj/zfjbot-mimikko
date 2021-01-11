@@ -50,7 +50,7 @@ def drawSigncard(sign_data):
                 Im.save(SaveImPath)
                 # 绘制背景
                 bg=Image.new(mode='RGB',size=(964,833),color="white")
-                im_border=int((bg.size[1]-Im.size[1])/2)
+                im_border=int((bg.size[0]-Im.size[0])/2)
                 bg.paste(Im,(im_border,im_border))
                 
                 # 绘制Description文字
