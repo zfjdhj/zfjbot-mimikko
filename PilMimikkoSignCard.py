@@ -70,8 +70,12 @@ def drawSigncard(sign_data):
                     index += 1
                 index = 0
                 for item in strList:
+                    if len(strList) <= 4:
+                        text_y = Im.size[1] + 60 + int(index * 1.2 * description_font_size)
+                    else:
+                        text_y = Im.size[1] + description_font_size + int(index * 1.2 * description_font_size)
                     draw.text(
-                        (2 * description_font_size, Im.size[1] + 60 + int(index * 1.2 * description_font_size)),
+                        (2 * description_font_size, text_y),
                         item,
                         fill=(
                             129,
