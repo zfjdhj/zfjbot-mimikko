@@ -53,7 +53,6 @@ def drawSigncard(sign_data):
                 bg = Image.new(mode="RGB", size=(964, 833), color="white")
                 im_border = int((bg.size[0] - Im.size[0]) / 2)
                 bg.paste(Im, (im_border, im_border))
-
                 # 绘制Description文字
                 draw = ImageDraw.Draw(bg)
                 font = ImageFont.truetype(description_font, size=description_font_size)
@@ -69,13 +68,20 @@ def drawSigncard(sign_data):
                         newStr = ""
                     index += 1
                 index = 0
+                if len(strList) >= 5:
+                    bg_new = Image.new(
+                        mode="RGB",
+                        size=(bg.size[0], bg.size[1] + description_font_size * (len(strList) - 1)),
+                        color="white",
+                    )
+                    bg_new.paste(bg)
+                    # bg = bg.resize(, resample=3)
+                    bg = bg_new
+                    draw = ImageDraw.Draw(bg)
                 for item in strList:
-                    if len(strList) <= 4:
-                        text_y = Im.size[1] + 60 + int(index * 1.2 * description_font_size)
-                    else:
-                        text_y = Im.size[1] + description_font_size + int(index * 1.2 * description_font_size)
+                    text_y = Im.size[1] + 60 + int(index * 1.2 * description_font_size)
                     draw.text(
-                        (2 * description_font_size, text_y),
+                        (int(1.5 * description_font_size), text_y),
                         item,
                         fill=(
                             129,
@@ -85,14 +91,13 @@ def drawSigncard(sign_data):
                         font=font,
                     )
                     index += 1
-
                 # 绘制pictureName
                 font_width, font_height = draw.textsize(ImPictureName, font)
                 x = bg.size[0] - font_width - 80
-                if bg.size[1] - font_height - 60 < Im.size[1] + 60 + int((index + 1) * description_font_size):
-                    y = bg.size[1] - font_height - 60
+                if index < 5:
+                    y = Im.size[1] + 90 + int(index * description_font_size)
                 else:
-                    y = Im.size[1] + 60 + int((index + 1) * description_font_size)
+                    y = Im.size[1] + 90 + int((index + 1) * description_font_size)
                 draw.text(
                     (x, y),
                     ImPictureName,
@@ -118,6 +123,7 @@ def drawSigncard(sign_data):
                     font=font,
                 )
                 date = time.strftime("%Y%m%d", time.localtime())
+                # bg.show()
                 bg.save(os.path.join(ImSetDir, f"SignCard{date}.jpg"))
                 MsgTxt = "download {} with requests.get({})\n".format(ImName, ImUrl)
                 FId2.writelines(MsgTxt)
@@ -126,6 +132,9 @@ def drawSigncard(sign_data):
                 FId.writelines(ImUrl)
                 MsgTxt = "not download {} with ERROR: {}\n".format(ImName, error)
                 FId2.writelines(MsgTxt)
+                print(error)
                 return error
     else:
+        print("sign_data error")
         return "sign_data error"
+
